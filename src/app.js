@@ -1,3 +1,9 @@
+require('dotenv').config({
+    path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
+});
+
+require('./dbConnect');
+
 const consign = require('consign');
 const cors = require('cors');
 const morgan = require('morgan');
