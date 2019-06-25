@@ -92,9 +92,8 @@ describe('EmployeeRepository tests', () => {
         } catch (e) {
             expect(e).toHaveProperty('statusCode', 401);
             expect(e).toHaveProperty('message', 'CPF já cadastrado');
+            done();
         }
-
-        done();
     });
 
     it('should get a employee by cpf filter', async (done) => {
@@ -111,9 +110,8 @@ describe('EmployeeRepository tests', () => {
         } catch (e) {
             expect(e).toHaveProperty('statusCode', 404);
             expect(e).toHaveProperty('message', 'Funcionário não encontrado');
+            done();
         }
-
-        done();
     });
 
     it('should update an employee', async (done) => {
@@ -151,9 +149,8 @@ describe('EmployeeRepository tests', () => {
         } catch (e) {
             expect(e).toHaveProperty('statusCode', 404);
             expect(e).toHaveProperty('message', 'Funcionário não encontrado');
+            done();
         }
-
-        done();
     });
 });
 
