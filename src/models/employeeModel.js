@@ -3,13 +3,13 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema(
     {
-        dataCad: Date,
-        cargo: String,
-        cpf: String,
-        nome: String,
-        ufNasc: String,
-        salario: Number,
-        status: String
+        dataCad: { type: Date, default: Date.now },
+        cargo: { type: String, required: true },
+        cpf: { type: String, required: true },
+        nome: { type: String, required: true },
+        ufNasc: { type: String, required: true },
+        salario: { type: Number, required: true },
+        status: { type: String, required: true }
     },
     { collection: 'employee' }
 );

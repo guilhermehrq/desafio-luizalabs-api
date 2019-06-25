@@ -3,6 +3,7 @@ const Employee = require('../../models/employeeModel');
 module.exports = {
     getEmployee,
     getEmployeeStates,
+    getEmployeeByCpf,
     insertEmployee,
     updateEmployee,
     deleteEmployee
@@ -14,13 +15,13 @@ async function getEmployee(filter) {
 
     const totalRows = await Employee.find(filter).countDocuments();
 
-    const data = await Employee.find(filter)
+    const employees = await Employee.find(filter)
         .limit(10)
         .skip((page - 1) * 10)
         .sort({ nome: 1 });
 
     return {
-        list: data,
+        list: employees,
         totalRows
     };
 }
@@ -36,6 +37,19 @@ async function getEmployeeStates() {
     ]).sort({ count: -1 });
 
     return data;
+}
+
+async function getEmployeeByCpf(employeeCpf) {
+    const employee = await Employee.findOne({ cpf: employeeCpf });
+
+    if (!employee) {
+        throw {
+            statusCode: 404,
+            message: 'Funcionário não encontrado'
+        };
+    }
+
+    return employee;
 }
 
 async function insertEmployee(data) {

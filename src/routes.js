@@ -12,6 +12,7 @@ module.exports = app => {
         .post(employee.insertEmployee);
 
     app.route('/employee/:employeeCpf')
+        .get(employee.getEmployeeByCpf)
         .put(employee.updateEmployee)
         .delete(employee.deleteEmployee);
 

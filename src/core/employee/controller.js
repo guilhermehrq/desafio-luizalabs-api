@@ -5,6 +5,7 @@ const scope = require('./scope');
 module.exports = {
     getEmployees,
     getEmployeeStates,
+    getEmployeeByCpf,
     insertEmployee,
     updateEmployee,
     deleteEmployee
@@ -55,13 +56,25 @@ async function getEmployeeStates(req, res) {
     }
 }
 
+async function getEmployeeByCpf(req, res) {
+    try {
+        const data = await repository.getEmployeeByCpf(req.params.employeeCpf);
+
+        res.status(200).json({
+            content: data
+        });
+    } catch (e) {
+        return handleError(res, e);
+    }
+}
+
 async function insertEmployee(req, res) {
     try {
         const params = {
             nome: req.body.nome,
             cpf: req.body.cpf,
+            ufNasc: req.body.ufNasc,
             cargo: req.body.cargo,
-            dataCad: req.body.dataCad,
             status: req.body.status,
             salario: req.body.salario
         };
@@ -83,9 +96,8 @@ async function updateEmployee(req, res) {
             id: req.body._id,
             employeeCpf: req.params.employeeCpf,
             nome: req.body.nome,
-            cpf: req.body.cpf,
+            ufNasc: req.body.ufNasc,
             cargo: req.body.cargo,
-            dataCad: req.body.dataCad,
             status: req.body.status,
             salario: req.body.salario
         };
