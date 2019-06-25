@@ -5,6 +5,8 @@ const scope = require('./scope');
 module.exports = {
     getEmployees,
     getEmployeeStates,
+    insertEmployee,
+    updateEmployee,
     deleteEmployee
 };
 
@@ -47,6 +49,51 @@ async function getEmployeeStates(req, res) {
 
         res.status(200).json({
             content: data
+        });
+    } catch (e) {
+        return handleError(res, e);
+    }
+}
+
+async function insertEmployee(req, res) {
+    try {
+        const params = {
+            nome: req.body.nome,
+            cpf: req.body.cpf,
+            cargo: req.body.cargo,
+            dataCad: req.body.dataCad,
+            status: req.body.status,
+            salario: req.body.salario
+        };
+
+        const data = await repository.insertEmployee(params);
+
+        res.status(200).json({
+            content: data,
+            message: 'Funcionário inserido com sucesso'
+        });
+    } catch (e) {
+        return handleError(res, e);
+    }
+}
+
+async function updateEmployee(req, res) {
+    try {
+        const params = {
+            id: req.body._id,
+            employeeCpf: req.params.employeeCpf,
+            nome: req.body.nome,
+            cpf: req.body.cpf,
+            cargo: req.body.cargo,
+            dataCad: req.body.dataCad,
+            status: req.body.status,
+            salario: req.body.salario
+        };
+
+        await repository.updateEmployee(params);
+
+        res.status(200).json({
+            message: 'Funcionário atualizado com sucesso'
         });
     } catch (e) {
         return handleError(res, e);

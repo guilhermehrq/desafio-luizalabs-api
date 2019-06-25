@@ -3,6 +3,8 @@ const Employee = require('../../models/employeeModel');
 module.exports = {
     getEmployee,
     getEmployeeStates,
+    insertEmployee,
+    updateEmployee,
     deleteEmployee
 };
 
@@ -34,6 +36,36 @@ async function getEmployeeStates() {
     ]).sort({ count: -1 });
 
     return data;
+}
+
+async function insertEmployee(data) {
+    const employee = await Employee.findOne({ cpf: data.cpf });
+
+    if (employee) {
+        throw {
+            statusCode: 401,
+            message: 'CPF já cadastrado'
+        };
+    }
+
+    const newEmployee = await Employee.create(data);
+
+    return newEmployee._id;
+}
+
+async function updateEmployee(data) {
+    const employee = await Employee.findOne({ cpf: data.employeeCpf });
+
+    if (!employee) {
+        throw {
+            statusCode: 404,
+            message: 'Funcionário não encontrado'
+        };
+    }
+
+    await Employee.findOneAndUpdate({ cpf: data.employeeCpf }, data);
+
+    return true;
 }
 
 async function deleteEmployee(employeeCpf) {

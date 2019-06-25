@@ -7,9 +7,13 @@ module.exports = app => {
         });
     });
 
-    app.route('/employee').get(employee.getEmployees);
+    app.route('/employee')
+        .get(employee.getEmployees)
+        .post(employee.insertEmployee);
 
-    app.route('/employee/:employeeCpf').delete(employee.deleteEmployee);
+    app.route('/employee/:employeeCpf')
+        .put(employee.updateEmployee)
+        .delete(employee.deleteEmployee);
 
     app.route('/employee-states').get(employee.getEmployeeStates);
 };
