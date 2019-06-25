@@ -7,6 +7,11 @@ module.exports = {
     formatDate
 };
 
+/**
+ * Processa o arquivo "funcionarios.txt" e trata todas as linhas
+ * retornando um array de objetos com informações dos funcionários
+ * @returns {Array}
+ */
 async function getEmployeeList() {
     try {
         const employee = [];
@@ -31,6 +36,12 @@ async function getEmployeeList() {
     }
 }
 
+/**
+ * Recebe a linha contendo informações do funcionário
+ * trata esta linha e retorna os dados separados de acordo com a model "employeeModel.js"
+ * @param {String} line
+ * @returns {Object}
+ */
 function generateEmployeeObject(line) {
     const [dataCad, cargo, cpf, nome, ufNasc, salario, status] = line.split(
         ';'
@@ -47,8 +58,13 @@ function generateEmployeeObject(line) {
     };
 }
 
-function formatDate(stringDate) {
-    const date = stringDate
+/**
+ * Formata e trata uma dateString retornando em formato de Data
+ * @param {String} dateString
+ * @returns {Date}
+ */
+function formatDate(dateString) {
+    const date = dateString
         .split('/')
         .reverse()
         .join('-');
