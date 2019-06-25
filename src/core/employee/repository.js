@@ -9,10 +9,7 @@ module.exports = {
     deleteEmployee
 };
 
-async function getEmployee(filter) {
-    const page = filter.page;
-    delete filter.page;
-
+async function getEmployee(filter, page) {
     const totalRows = await Employee.find(filter).countDocuments();
 
     const employees = await Employee.find(filter)
@@ -77,9 +74,13 @@ async function updateEmployee(data) {
         };
     }
 
-    await Employee.findOneAndUpdate({ cpf: data.employeeCpf }, data);
+    const updatedEmployee = await Employee.findOneAndUpdate(
+        { cpf: data.employeeCpf },
+        data,
+        { new: true }
+    );
 
-    return true;
+    return updatedEmployee;
 }
 
 async function deleteEmployee(employeeCpf) {

@@ -20,7 +20,6 @@ function handleError(res, e) {
 async function getEmployees(req, res) {
     try {
         const params = {
-            page: req.query.page || 1,
             nome: req.query.nome || null,
             cpf: req.query.cpf || null,
             cargo: req.query.cargo || null,
@@ -30,11 +29,13 @@ async function getEmployees(req, res) {
             salarioFinal: req.query.salarioFinal || null
         };
 
+        const page = req.query.page || 1;
+
         await scope.validateFilters(params);
 
         const filters = service.generateFilter(params);
 
-        const data = await repository.getEmployee(filters);
+        const data = await repository.getEmployee(filters, page);
 
         res.status(200).json({
             content: data

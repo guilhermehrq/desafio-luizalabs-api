@@ -17,9 +17,9 @@ async function validateFilters(query) {
         errors.push(`dataCad: ${dataCad} não é uma data válida!`);
     }
 
-    if (status && !['AUTORIZADO', 'BLOQUEADO', 'INATIVO'].includes(status)) {
+    if (status && !['ATIVO', 'BLOQUEADO', 'INATIVO'].includes(status)) {
         errors.push(
-            `status: ${status} não é um status válido. Pode ser apenas AUTORIZADO, BLOQUEADO OU INATIVO.`
+            `status: ${status} não é um status válido. Pode ser apenas ATIVO, BLOQUEADO OU INATIVO.`
         );
     }
 

@@ -19,7 +19,7 @@ beforeAll(async done => {
 });
 
 describe('EmployeeService integration test', () => {
-    it('should drop the database, execute the populate script and then verify if any document was inserted', async () => {
+    it('should drop the database, execute the populate script and then verify if any document was inserted', async done => {
         await mongoose.connection.db.dropDatabase();
 
         await employeeService();
@@ -27,6 +27,7 @@ describe('EmployeeService integration test', () => {
         const data = await Employee.find();
 
         expect(data.length).toBeGreaterThan(0);
+        done();
     });
 });
 
