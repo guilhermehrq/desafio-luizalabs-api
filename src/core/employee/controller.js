@@ -3,7 +3,8 @@ const service = require('./service');
 const scope = require('./scope');
 
 module.exports = {
-    getEmployees
+    getEmployees,
+    getEmployeeStates
 };
 
 async function getEmployees(req, res) {
@@ -24,6 +25,20 @@ async function getEmployees(req, res) {
         const filters = service.generateFilter(params);
 
         const data = await repository.getEmployee(filters);
+
+        res.status(200).json({
+            content: data
+        });
+    } catch (e) {
+        res.status(e.statusCode || 500).json({
+            message: e.message || 'Falha ao processar requisição'
+        });
+    }
+}
+
+async function getEmployeeStates(req, res) {
+    try {
+        const data = await repository.getEmployeeStates();
 
         res.status(200).json({
             content: data

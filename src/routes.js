@@ -8,4 +8,6 @@ module.exports = app => {
     });
 
     app.route('/employee').get(employee.getEmployees);
+
+    app.route('/employee-states').get(employee.getEmployeeStates);
 };

@@ -1,7 +1,8 @@
 const Employee = require('../../models/employeeModel');
 
 module.exports = {
-    getEmployee
+    getEmployee,
+    getEmployeeStates
 };
 
 async function getEmployee(filter) {
@@ -19,4 +20,17 @@ async function getEmployee(filter) {
         list: data,
         totalRows
     };
+}
+
+async function getEmployeeStates() {
+    const data = await Employee.aggregate([
+        {
+            $group: {
+                _id: '$ufNasc',
+                count: { $sum: 1 }
+            }
+        }
+    ]).sort({ count: -1 });
+
+    return data;
 }
