@@ -4,8 +4,15 @@ const scope = require('./scope');
 
 module.exports = {
     getEmployees,
-    getEmployeeStates
+    getEmployeeStates,
+    deleteEmployee
 };
+
+function handleError(res, e) {
+    res.status(e.statusCode || 500).json({
+        message: e.message || 'Falha ao processar requisição'
+    });
+}
 
 async function getEmployees(req, res) {
     try {
@@ -30,9 +37,7 @@ async function getEmployees(req, res) {
             content: data
         });
     } catch (e) {
-        res.status(e.statusCode || 500).json({
-            message: e.message || 'Falha ao processar requisição'
-        });
+        return handleError(res, e);
     }
 }
 
@@ -44,8 +49,18 @@ async function getEmployeeStates(req, res) {
             content: data
         });
     } catch (e) {
-        res.status(e.statusCode || 500).json({
-            message: e.message || 'Falha ao processar requisição'
+        return handleError(res, e);
+    }
+}
+
+async function deleteEmployee(req, res) {
+    try {
+        await repository.deleteEmployee(req.params.employeeCpf);
+
+        res.status(200).json({
+            content: 'Funcionário excluído com sucesso!'
         });
+    } catch (e) {
+        return handleError(res, e);
     }
 }

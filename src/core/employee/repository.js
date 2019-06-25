@@ -2,7 +2,8 @@ const Employee = require('../../models/employeeModel');
 
 module.exports = {
     getEmployee,
-    getEmployeeStates
+    getEmployeeStates,
+    deleteEmployee
 };
 
 async function getEmployee(filter) {
@@ -33,4 +34,19 @@ async function getEmployeeStates() {
     ]).sort({ count: -1 });
 
     return data;
+}
+
+async function deleteEmployee(employeeCpf) {
+    const employee = await Employee.findOne({ cpf: employeeCpf });
+
+    if (!employee) {
+        throw {
+            statusCode: 404,
+            message: 'Funcionário não encontrado'
+        };
+    }
+
+    await Employee.findOneAndDelete({ cpf: employeeCpf });
+
+    return true;
 }
