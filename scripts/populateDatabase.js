@@ -19,7 +19,7 @@ mongoose
 
         await employeeService();
 
-        mongoose.disconnect();
+        await mongoose.disconnect();
     })
     .catch(e => {
         throw e;
