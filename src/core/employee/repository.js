@@ -1,4 +1,5 @@
 const Employee = require('../../models/employeeModel');
+const service = require('./service');
 
 module.exports = {
     getEmployee,
@@ -6,20 +7,22 @@ module.exports = {
     getEmployeeByCpf,
     insertEmployee,
     updateEmployee,
-    deleteEmployee
+    deleteEmployee,
 };
 
-async function getEmployee(filter, page) {
-    const totalRows = await Employee.find(filter).countDocuments();
+async function getEmployee(params, page) {
+    const filters = service.generateFilter(params);
 
-    const employees = await Employee.find(filter)
+    const totalRows = await Employee.find(filters).countDocuments();
+
+    const employees = await Employee.find(filters)
         .limit(10)
         .skip((page - 1) * 10)
         .sort({ nome: 1 });
 
     return {
         list: employees,
-        totalRows
+        totalRows,
     };
 }
 
@@ -28,9 +31,9 @@ async function getEmployeeStates() {
         {
             $group: {
                 _id: '$ufNasc',
-                count: { $sum: 1 }
-            }
-        }
+                count: { $sum: 1 },
+            },
+        },
     ]).sort({ count: -1 });
 
     return data;
@@ -42,7 +45,7 @@ async function getEmployeeByCpf(employeeCpf) {
     if (!employee) {
         throw {
             statusCode: 404,
-            message: 'Funcionário não encontrado'
+            message: 'Funcionário não encontrado',
         };
     }
 
@@ -55,7 +58,7 @@ async function insertEmployee(data) {
     if (employee) {
         throw {
             statusCode: 401,
-            message: 'CPF já cadastrado'
+            message: 'CPF já cadastrado',
         };
     }
 
@@ -70,15 +73,13 @@ async function updateEmployee(data) {
     if (!employee) {
         throw {
             statusCode: 404,
-            message: 'Funcionário não encontrado'
+            message: 'Funcionário não encontrado',
         };
     }
 
-    const updatedEmployee = await Employee.findOneAndUpdate(
-        { cpf: data.employeeCpf },
-        data,
-        { new: true }
-    );
+    const updatedEmployee = await Employee.findOneAndUpdate({ cpf: data.employeeCpf }, data, {
+        new: true,
+    });
 
     return updatedEmployee;
 }
@@ -89,7 +90,7 @@ async function deleteEmployee(employeeCpf) {
     if (!employee) {
         throw {
             statusCode: 404,
-            message: 'Funcionário não encontrado'
+            message: 'Funcionário não encontrado',
         };
     }
 

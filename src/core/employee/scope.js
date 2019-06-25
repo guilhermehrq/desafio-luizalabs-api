@@ -1,7 +1,174 @@
+const validate = require('../../helper/validate');
+
 module.exports = {
+    getEmployees,
+    getEmployeeByCpf,
+    insertEmployee,
+    updateEmployee,
+    deleteEmployee,
     validateFilters,
-    isDate
 };
+
+async function getEmployees(params) {
+    const validation = {
+        nome: {
+            string: true,
+        },
+        cpf: {
+            string: true,
+        },
+        cargo: {
+            string: true,
+        },
+        dataCad: {
+            date: true,
+        },
+        status: {
+            string: true,
+        },
+        salarioInicial: {
+            number: true,
+        },
+        salarioFinal: {
+            number: true,
+        },
+    };
+
+    try {
+        await validate(params, validation);
+        await validateFilters(params);
+    } catch (error) {
+        error.statusCode = 400;
+        throw error;
+    }
+}
+
+async function getEmployeeByCpf(params) {
+    const validation = {
+        cpf: {
+            string: true,
+            required: true,
+            notNull: true,
+        },
+    };
+
+    try {
+        await validate(params, validation);
+    } catch (error) {
+        error.statusCode = 400;
+        throw error;
+    }
+}
+
+async function insertEmployee(params) {
+    const validation = {
+        nome: {
+            string: true,
+            required: true,
+            notNull: true,
+        },
+        cpf: {
+            string: true,
+            required: true,
+            notNull: true,
+        },
+        ufNasc: {
+            string: true,
+            required: true,
+            notNull: true,
+            maxLength: 2,
+        },
+        cargo: {
+            string: true,
+            required: true,
+            notNull: true,
+        },
+        status: {
+            string: true,
+            required: true,
+            notNull: true,
+        },
+        salario: {
+            number: true,
+            required: true,
+            notNull: true,
+        },
+    };
+
+    try {
+        await validate(params, validation);
+        await validateFilters(params);
+    } catch (error) {
+        error.statusCode = 400;
+        throw error;
+    }
+}
+
+async function updateEmployee(params) {
+    const validation = {
+        id: {
+            string: true,
+            required: true,
+            notNull: true,
+        },
+        employeeCpf: {
+            string: true,
+            required: true,
+            notNull: true,
+        },
+        nome: {
+            string: true,
+            required: true,
+            notNull: true,
+        },
+        ufNasc: {
+            string: true,
+            required: true,
+            notNull: true,
+            maxLength: 2,
+        },
+        cargo: {
+            string: true,
+            required: true,
+            notNull: true,
+        },
+        status: {
+            string: true,
+            required: true,
+            notNull: true,
+        },
+        salario: {
+            number: true,
+            required: true,
+            notNull: true,
+        },
+    };
+
+    try {
+        await validate(params, validation);
+        await validateFilters(params);
+    } catch (error) {
+        error.statusCode = 400;
+        throw error;
+    }
+}
+
+async function deleteEmployee(params) {
+    const validation = {
+        cpf: {
+            string: true,
+            required: true,
+            notNull: true,
+        },
+    };
+
+    try {
+        await validate(params, validation);
+    } catch (error) {
+        error.statusCode = 400;
+        throw error;
+    }
+}
 
 /**
  * Recebe a query passada para a rota e valida os campos necessários
@@ -11,15 +178,11 @@ module.exports = {
 async function validateFilters(query) {
     const errors = [];
 
-    const { dataCad, status, salarioInicial, salarioFinal } = query;
-
-    if (dataCad && !isDate(dataCad)) {
-        errors.push(`dataCad: ${dataCad} não é uma data válida!`);
-    }
+    const { status, salarioInicial, salarioFinal } = query;
 
     if (status && !['ATIVO', 'BLOQUEADO', 'INATIVO'].includes(status)) {
         errors.push(
-            `status: ${status} não é um status válido. Pode ser apenas ATIVO, BLOQUEADO OU INATIVO.`
+            `status: ${status} não é um status válido. Pode ser apenas ATIVO, BLOQUEADO OU INATIVO.`,
         );
     }
 
@@ -28,20 +191,6 @@ async function validateFilters(query) {
     }
 
     if (errors.length) {
-        throw {
-            message: errors,
-            statusCode: 400
-        };
+        throw errors;
     }
-}
-
-/**
- * Verifica se uma data é válida
- * @param {String} date
- * @returns {boolean}
- */
-function isDate(date) {
-    const objectDate = new Date(date);
-
-    return objectDate !== 'Invalid Date' && !isNaN(objectDate);
 }

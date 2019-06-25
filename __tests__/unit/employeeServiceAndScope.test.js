@@ -11,13 +11,13 @@ describe('EmployeeService tests', () => {
             dataCad: null,
             status: 'ATIVO',
             salarioInicial: 5000,
-            salarioFinal: null
+            salarioFinal: null,
         };
 
         const expectedQuery = {
             page: 1,
             status: 'ATIVO',
-            salarioInicial: 5000
+            salarioInicial: 5000,
         };
 
         const formattedQuery = employeeService.formatFilter(query);
@@ -34,7 +34,7 @@ describe('EmployeeService tests', () => {
             dataCad: '2017-04-15',
             status: 'ATIVO',
             salarioInicial: 5000,
-            salarioFinal: 8000
+            salarioFinal: 8000,
         };
 
         const expectedFilter = {
@@ -46,8 +46,8 @@ describe('EmployeeService tests', () => {
             status: 'ATIVO',
             salario: {
                 $gte: 5000,
-                $lte: 8000
-            }
+                $lte: 8000,
+            },
         };
 
         const generatedFilter = employeeService.generateFilter(query);
@@ -57,15 +57,7 @@ describe('EmployeeService tests', () => {
 });
 
 describe('employeeScope tests', () => {
-    it('should verify if a date is valid', () => {
-        const validDate = employeeScope.isDate('2019-06-23');
-        const invalidDate = employeeScope.isDate('06-2019-21');
-
-        expect(validDate).toBeTruthy();
-        expect(invalidDate).toBeFalsy();
-    });
-
-    it('should pass a query in the validate and verify the results - this case pass', async done => {
+    it('should pass a query in the validate and verify the results - this case pass', async (done) => {
         const query = {
             page: 1,
             nome: 'Teste',
@@ -74,7 +66,7 @@ describe('employeeScope tests', () => {
             dataCad: '2017-04-15',
             status: 'ATIVO',
             salarioInicial: 5000,
-            salarioFinal: 8000
+            salarioFinal: 8000,
         };
 
         const isValid = await employeeScope.validateFilters(query);
@@ -82,11 +74,10 @@ describe('employeeScope tests', () => {
         done();
     });
 
-    it('should pass a query in the validate and verify the results - this case return errors', async done => {
+    it('should pass a query in the validate and verify the results - this case return errors', async (done) => {
         const expectedError = [
-            'dataCad: 5046240 não é uma data válida!',
             'status: FALECIDO não é um status válido. Pode ser apenas ATIVO, BLOQUEADO OU INATIVO.',
-            'salarioIncial deve ser menor que o salarioFinal!'
+            'salarioIncial deve ser menor que o salarioFinal!',
         ];
 
         try {
@@ -95,17 +86,15 @@ describe('employeeScope tests', () => {
                 nome: 'Teste',
                 cpf: '12345678909',
                 cargo: 'Dev Jr',
-                dataCad: '5046240',
+                dataCad: '2017-04-15',
                 status: 'FALECIDO',
                 salarioInicial: 8000,
-                salarioFinal: 5000
+                salarioFinal: 5000,
             };
 
             await employeeScope.validateFilters(query);
         } catch (e) {
-            expect(e).toHaveProperty('message');
-            expect(e.message).toEqual(expectedError);
-            expect(e).toHaveProperty('statusCode', 400);
+            expect(e).toEqual(expectedError);
         }
 
         done();

@@ -1,5 +1,4 @@
 const repository = require('./repository');
-const service = require('./service');
 const scope = require('./scope');
 
 module.exports = {
@@ -8,12 +7,13 @@ module.exports = {
     getEmployeeByCpf,
     insertEmployee,
     updateEmployee,
-    deleteEmployee
+    deleteEmployee,
 };
 
-function handleError(res, e) {
-    res.status(e.statusCode || 500).json({
-        message: e.message || 'Falha ao processar requisição'
+function handleError(res, error) {
+    res.status(error.statusCode || 500).json({
+        message: error.message || 'Falha ao processar requisição',
+        error,
     });
 }
 
@@ -26,19 +26,17 @@ async function getEmployees(req, res) {
             dataCad: req.query.dataCad || null,
             status: req.query.status || null,
             salarioInicial: req.query.salarioInicial || null,
-            salarioFinal: req.query.salarioFinal || null
+            salarioFinal: req.query.salarioFinal || null,
         };
 
         const page = req.query.page || 1;
 
-        await scope.validateFilters(params);
+        await scope.getEmployees(params);
 
-        const filters = service.generateFilter(params);
-
-        const data = await repository.getEmployee(filters, page);
+        const data = await repository.getEmployee(params, page);
 
         res.status(200).json({
-            content: data
+            content: data,
         });
     } catch (e) {
         return handleError(res, e);
@@ -50,7 +48,7 @@ async function getEmployeeStates(req, res) {
         const data = await repository.getEmployeeStates();
 
         res.status(200).json({
-            content: data
+            content: data,
         });
     } catch (e) {
         return handleError(res, e);
@@ -59,10 +57,16 @@ async function getEmployeeStates(req, res) {
 
 async function getEmployeeByCpf(req, res) {
     try {
-        const data = await repository.getEmployeeByCpf(req.params.employeeCpf);
+        const params = {
+            cpf: req.params.employeeCpf,
+        };
+
+        await scope.getEmployeeByCpf(params);
+
+        const data = await repository.getEmployeeByCpf(params.cpf);
 
         res.status(200).json({
-            content: data
+            content: data,
         });
     } catch (e) {
         return handleError(res, e);
@@ -77,14 +81,16 @@ async function insertEmployee(req, res) {
             ufNasc: req.body.ufNasc,
             cargo: req.body.cargo,
             status: req.body.status,
-            salario: req.body.salario
+            salario: req.body.salario,
         };
+
+        await scope.insertEmployee(params);
 
         const data = await repository.insertEmployee(params);
 
         res.status(200).json({
             content: data,
-            message: 'Funcionário inserido com sucesso'
+            message: 'Funcionário inserido com sucesso',
         });
     } catch (e) {
         return handleError(res, e);
@@ -100,13 +106,15 @@ async function updateEmployee(req, res) {
             ufNasc: req.body.ufNasc,
             cargo: req.body.cargo,
             status: req.body.status,
-            salario: req.body.salario
+            salario: req.body.salario,
         };
+
+        await scope.updateEmployee(params);
 
         await repository.updateEmployee(params);
 
         res.status(200).json({
-            message: 'Funcionário atualizado com sucesso'
+            message: 'Funcionário atualizado com sucesso',
         });
     } catch (e) {
         return handleError(res, e);
@@ -115,10 +123,16 @@ async function updateEmployee(req, res) {
 
 async function deleteEmployee(req, res) {
     try {
-        await repository.deleteEmployee(req.params.employeeCpf);
+        const params = {
+            cpf: req.params.employeeCpf,
+        };
+
+        await scope.deleteEmployee(params);
+
+        await repository.deleteEmployee(params.cpf);
 
         res.status(200).json({
-            content: 'Funcionário excluído com sucesso!'
+            content: 'Funcionário excluído com sucesso!',
         });
     } catch (e) {
         return handleError(res, e);
