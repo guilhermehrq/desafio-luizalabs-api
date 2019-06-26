@@ -24,7 +24,7 @@
         "dev": "nodemon src/index.js",
         "test": "NODE_ENV=test jest",
         "populate-database": "node scripts/populateDatabase.js",
-        "populate-database-test": "NODE_ENV=test node scripts/populateDatabase.js"
+        "populate-database-tests": "NODE_ENV=test node scripts/populateDatabase.js"
     },
     "repository": {
         "type": "git",
