@@ -25,8 +25,8 @@ async function getEmployees(req, res) {
             cargo: req.query.cargo || null,
             dataCad: req.query.dataCad || null,
             status: req.query.status || null,
-            salarioInicial: req.query.salarioInicial || null,
-            salarioFinal: req.query.salarioFinal || null,
+            salarioMin: req.query.salarioMin || null,
+            salarioMax: req.query.salarioMax || null,
         };
 
         const page = req.query.page || 1;

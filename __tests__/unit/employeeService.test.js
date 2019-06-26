@@ -9,14 +9,14 @@ describe('EmployeeService tests', () => {
             cargo: null,
             dataCad: null,
             status: 'ATIVO',
-            salarioInicial: 5000,
-            salarioFinal: null,
+            salarioMin: 5000,
+            salarioMax: null,
         };
 
         const expectedQuery = {
             page: 1,
             status: 'ATIVO',
-            salarioInicial: 5000,
+            salarioMin: 5000,
         };
 
         const formattedQuery = employeeService.formatFilter(query);
@@ -32,8 +32,8 @@ describe('EmployeeService tests', () => {
             cargo: 'Dev Jr',
             dataCad: '2017-04-15',
             status: 'ATIVO',
-            salarioInicial: 5000,
-            salarioFinal: 8000,
+            salarioMin: 5000,
+            salarioMax: 8000,
         };
 
         const expectedFilter = {

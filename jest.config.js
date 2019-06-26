@@ -25,7 +25,9 @@ module.exports = {
         'src/**',
         '!src/index.js',
         '!src/routes.js',
-        '!src/dbConnect.js'
+        '!src/dbConnect.js',
+        '!src/swagger.json',
+        '!src/swagger.yaml',
     ],
 
     // The directory where Jest should output its coverage files
@@ -143,7 +145,7 @@ module.exports = {
     // testLocationInResults: false,
 
     // The glob patterns Jest uses to detect test files
-    testMatch: ['**/__tests__/**/*.test.js']
+    testMatch: ['**/__tests__/**/*.test.js'],
 
     // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
     // testPathIgnorePatterns: [

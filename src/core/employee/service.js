@@ -15,19 +15,19 @@ function generateFilter(data) {
         filter.dataCad = new Date(filter.dataCad).toISOString();
     }
 
-    if (filter.salarioInicial || filter.salarioFinal) {
+    if (filter.salarioMin || filter.salarioMax) {
         filter.salario = {};
 
-        if (filter.salarioInicial) {
-            filter.salario.$gte = filter.salarioInicial;
+        if (filter.salarioMin) {
+            filter.salario.$gte = filter.salarioMin;
         }
 
-        if (filter.salarioFinal) {
-            filter.salario.$lte = filter.salarioFinal;
+        if (filter.salarioMax) {
+            filter.salario.$lte = filter.salarioMax;
         }
 
-        delete filter.salarioInicial;
-        delete filter.salarioFinal;
+        delete filter.salarioMin;
+        delete filter.salarioMax;
     }
 
     if (filter.nome) {

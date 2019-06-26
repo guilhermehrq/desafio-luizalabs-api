@@ -1,0 +1,593 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Desafio Técnico Luizalabs",
+        "description": "API documentation developed for Luizalabs technical challenge.",
+        "license": {
+            "name": "MIT",
+            "url": "http://opensource.org/licenses/MIT"
+        }
+    },
+    "schemes": ["http"],
+    "host": "127.0.0.1:3000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "ping",
+            "description": "Make a ping request to see if the API are running"
+        },
+        {
+            "name": "employee",
+            "description": "Employee services requests"
+        }
+    ],
+    "paths": {
+        "/ping": {
+            "get": {
+                "tags": ["ping"],
+                "summary": "Execute a request verifying if the API are listen",
+                "description": "",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": {
+                                "message": "2019-06-26T03:10:35.547Z"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/employee": {
+            "get": {
+                "tags": ["employee"],
+                "summary": "Gets a list of employees along with the total of rows",
+                "description": "List of employees with their informations",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of the page to do the pagination",
+                        "type": "number"
+                    },
+                    {
+                        "name": "nome",
+                        "in": "query",
+                        "description": "Employee name to be searched for",
+                        "type": "string"
+                    },
+                    {
+                        "name": "cpf",
+                        "in": "query",
+                        "description": "Employee cpf to be searched for",
+                        "type": "string"
+                    },
+                    {
+                        "name": "cargo",
+                        "in": "query",
+                        "description": "Employee role to be searched for",
+                        "type": "string"
+                    },
+                    {
+                        "name": "dataCad",
+                        "in": "query",
+                        "description": "Employee register date to be searched for. Ex: YYYY-MM-DD",
+                        "type": "string"
+                    },
+                    {
+                        "name": "ufNasc",
+                        "in": "query",
+                        "description": "Employee uf of birth to be searched for",
+                        "type": "string"
+                    },
+                    {
+                        "name": "salarioMin",
+                        "in": "query",
+                        "description": "Employee min salary to be searched for",
+                        "type": "number"
+                    },
+                    {
+                        "name": "salarioMax",
+                        "in": "query",
+                        "description": "Employee max salary to be searched for",
+                        "type": "number"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Employee status to be searched for",
+                        "type": "string",
+                        "items": {
+                            "enum": ["ATIVO", "BLOQUEADO", "INATIVO"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. A list of emplpoyee and a property with the total of rows found",
+                        "schema": {
+                            "$ref": "#/definitions/getEmployee"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Occurs when an invalid query is passed to the request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Falha ao processar requisição"
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "example": "\"dataCad\" deve ser uma data"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["employee"],
+                "summary": "Insert a new employee in the database",
+                "description": "Create a new employee from the given informations and save in the database, returning a message and the _id property of the new employee",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Employee data example to be inserted",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/insertEmployee"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. Employee inserted with success!",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "content": {
+                                    "type": "string",
+                                    "example": "5d12eae5fdce28793dd9e2cd"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Funcionário inserido com sucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request. Some parameters was passed incorrectly",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Falha ao processar requisição"
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "example": [
+                                        "\"nome\" é obrigatório",
+                                        "\"cpf\" é obrigatório",
+                                        "\"ufNasc\" é obrigatório",
+                                        "\"cargo\" é obrigatório",
+                                        "\"status\" é obrigatório",
+                                        "\"salario\" é obrigatório"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not authorized. When was tried to insert a new employee with an existing CPF",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "CPF já cadastrado"
+                                },
+                                "error": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "statusCode": 401,
+                                        "message": "CPF já cadastrado"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/employee/{employeeId}": {
+            "get": {
+                "tags": ["employee"],
+                "summary": "Search a employee by your CPF number",
+                "description": "Search and return informations of a employee by your CPF number",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "employeeId",
+                        "description": "The CPF number of an employee",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. You receive the data of a employee",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "content": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_id": {
+                                            "type": "string"
+                                        },
+                                        "nome": {
+                                            "type": "string"
+                                        },
+                                        "cpf": {
+                                            "type": "string"
+                                        },
+                                        "cargo": {
+                                            "type": "string"
+                                        },
+                                        "dataCad": {
+                                            "type": "date-time"
+                                        },
+                                        "ufNasc": {
+                                            "type": "string"
+                                        },
+                                        "salario": {
+                                            "type": "number"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "_id": "507f1f77bcf86cd799439011",
+                                        "nome": "Test Employee",
+                                        "cpf": "12345678909",
+                                        "cargo": "Dev Jr",
+                                        "dataCad": "2017-04-15T00:00:00Z",
+                                        "ufNasc": "RJ",
+                                        "salario": 8500,
+                                        "status": "ATIVO"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found. When wasn't found a employee with the CPF given",
+                        "schema": {
+                            "$ref": "#/definitions/employeeId404"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["employee"],
+                "summary": "Update an employee by your CPF number",
+                "description": "Search and update informations of an employee by your CPF number",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "employeeId",
+                        "description": "The CPF number of an employee",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Employee new data to be updated",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/updateEmployee"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. The employee was updated with success!",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Funcionário atualizado com sucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request. Some parameters was passed incorrectly",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Falha ao processar requisição"
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "example": [
+                                        "\"id\" é obrigatório",
+                                        "\"nome\" é obrigatório",
+                                        "\"ufNasc\" é obrigatório",
+                                        "\"cargo\" é obrigatório",
+                                        "\"status\" é obrigatório",
+                                        "\"salario\" é obrigatório"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found. When wasn't found a employee with the CPF given",
+                        "schema": {
+                            "$ref": "#/definitions/employeeId404"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["employee"],
+                "summary": "Delete an employee by your CPF number",
+                "description": "Search and delete informations of an employee by your CPF number",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "employeeId",
+                        "description": "The CPF number of an employee",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. The employee was deleted with success!",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "content": {
+                                    "type": "string",
+                                    "example": "Funcionário excluído com sucesso!"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found. When wasn't found a employee with the CPF given",
+                        "schema": {
+                            "$ref": "#/definitions/employeeId404"
+                        }
+                    }
+                }
+            }
+        },
+        "/employee-states": {
+            "get": {
+                "tags": ["employee"],
+                "summary": "Return employees UF of birth",
+                "description": "Return employees' UF of birth along with the quantity in each",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "OK. Receive a list of employees' UF along with the quantity in each",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "content": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "_id": {
+                                                "type": "string"
+                                            },
+                                            "cound": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "example": {
+                                            "_id": "RJ",
+                                            "count": 29
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "getEmployee": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "object",
+                    "properties": {
+                        "list": {
+                            "type": "array",
+                            "description": "The list of employees found",
+                            "items": {
+                                "_id": {
+                                    "type": "string"
+                                },
+                                "nome": {
+                                    "type": "string"
+                                },
+                                "cpf": {
+                                    "type": "string"
+                                },
+                                "cargo": {
+                                    "type": "string"
+                                },
+                                "dataCad": {
+                                    "type": "date-time"
+                                },
+                                "ufNasc": {
+                                    "type": "string"
+                                },
+                                "salario": {
+                                    "type": "number"
+                                },
+                                "status": {
+                                    "type": "string"
+                                },
+                                "example": {
+                                    "_id": "507f1f77bcf86cd799439011",
+                                    "nome": "Test Employee",
+                                    "cpf": "12345678909",
+                                    "cargo": "Dev Jr",
+                                    "dataCad": "2017-04-15T00:00:00Z",
+                                    "ufNasc": "RJ",
+                                    "salario": 8500,
+                                    "status": "ATIVO"
+                                }
+                            }
+                        },
+                        "totalRows": {
+                            "type": "number",
+                            "description": "The number of emplooyees found",
+                            "example": 1
+                        }
+                    }
+                }
+            }
+        },
+        "insertEmployee": {
+            "type": "object",
+            "properties": {
+                "nome": {
+                    "type": "string"
+                },
+                "cpf": {
+                    "type": "string"
+                },
+                "ufNasc": {
+                    "type": "string"
+                },
+                "cargo": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string",
+                    "items": {
+                        "enum": ["ATIVO", "BLOQUEADO", "INATIVO"]
+                    }
+                },
+                "salario": {
+                    "type": "number"
+                }
+            },
+            "example": {
+                "nome": "Test",
+                "cpf": "12345678909",
+                "ufNasc": "SP",
+                "cargo": "Dev Pl",
+                "status": "ATIVO",
+                "salario": 8500
+            }
+        },
+        "updateEmployee": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "cargo": {
+                    "type": "string"
+                },
+                "ufNasc": {
+                    "type": "string"
+                },
+                "salario": {
+                    "type": "number"
+                },
+                "status": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "_id": "507f1f77bcf86cd799439011",
+                "nome": "Updated Test Employee",
+                "cargo": "Dev Jr",
+                "ufNasc": "RJ",
+                "salario": 8500,
+                "status": "ATIVO"
+            }
+        },
+        "employeeId404": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Funcionário não encontrado"
+                },
+                "error": {
+                    "type": "object",
+                    "properties": {
+                        "statusCode": {
+                            "type": "number"
+                        },
+                        "message": {
+                            "type": "string"
+                        }
+                    },
+                    "example": {
+                        "statusCode": 404,
+                        "message": "Funcionário não encontrado"
+                    }
+                }
+            }
+        }
+    }
+}

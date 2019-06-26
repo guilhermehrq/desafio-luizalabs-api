@@ -26,10 +26,10 @@ async function getEmployees(params) {
         status: {
             string: true,
         },
-        salarioInicial: {
+        salarioMin: {
             number: true,
         },
-        salarioFinal: {
+        salarioMax: {
             number: true,
         },
     };
@@ -178,7 +178,7 @@ async function deleteEmployee(params) {
 async function validateFilters(query) {
     const errors = [];
 
-    const { status, salarioInicial, salarioFinal } = query;
+    const { status, salarioMin, salarioMax } = query;
 
     if (status && !['ATIVO', 'BLOQUEADO', 'INATIVO'].includes(status)) {
         errors.push(
@@ -186,8 +186,8 @@ async function validateFilters(query) {
         );
     }
 
-    if (salarioInicial && salarioFinal && salarioInicial > salarioFinal) {
-        errors.push('salarioIncial deve ser menor que o salarioFinal!');
+    if (salarioMin && salarioMax && salarioMin > salarioMax) {
+        errors.push('salarioMin deve ser menor que o salarioMax!');
     }
 
     if (errors.length) {

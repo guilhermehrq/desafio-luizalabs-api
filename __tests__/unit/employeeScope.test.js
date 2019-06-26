@@ -8,8 +8,8 @@ describe('employeeScope tests', () => {
             cargo: 'Dev',
             dataCad: '2017-04-15',
             status: 'ATIVO',
-            salarioInicial: 5000,
-            salarioFinal: 8000,
+            salarioMin: 5000,
+            salarioMax: 8000,
         };
 
         const ret = await employeeScope.getEmployees(params);
@@ -81,8 +81,8 @@ describe('employeeScope tests', () => {
             cargo: 'Dev Jr',
             dataCad: '2017-04-15',
             status: 'ATIVO',
-            salarioInicial: 5000,
-            salarioFinal: 8000,
+            salarioMin: 5000,
+            salarioMax: 8000,
         };
 
         const isValid = await employeeScope.validateFilters(query);
@@ -93,7 +93,7 @@ describe('employeeScope tests', () => {
     it('should pass a query in the validate and verify the results - this case return errors', async (done) => {
         const expectedError = [
             'status: FALECIDO não é um status válido. Pode ser apenas ATIVO, BLOQUEADO OU INATIVO.',
-            'salarioIncial deve ser menor que o salarioFinal!',
+            'salarioMin deve ser menor que o salarioMax!',
         ];
 
         try {
@@ -104,8 +104,8 @@ describe('employeeScope tests', () => {
                 cargo: 'Dev Jr',
                 dataCad: '2017-04-15',
                 status: 'FALECIDO',
-                salarioInicial: 8000,
-                salarioFinal: 5000,
+                salarioMin: 8000,
+                salarioMax: 5000,
             };
 
             await employeeScope.validateFilters(query);

@@ -1,9 +1,12 @@
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
 const employee = require('./core/employee/controller');
 
-module.exports = app => {
+module.exports = (app) => {
     app.route('/ping').get((req, res) => {
         res.status(200).json({
-            message: new Date()
+            message: new Date(),
         });
     });
 
@@ -17,4 +20,6 @@ module.exports = app => {
         .delete(employee.deleteEmployee);
 
     app.route('/employee-states').get(employee.getEmployeeStates);
+
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 };
