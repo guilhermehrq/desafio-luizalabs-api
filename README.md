@@ -13,7 +13,9 @@ Aplicação desenvolvida com base no documento técnico para vaga de desenvolved
 ## Índice
 
 -   [O desafio](#id1)
--   [Executando a aplicação](#id2) - [Configurando váriavies de ambiente](#id3) - [Iniciando a API](#id4)
+-   [Executando a aplicação](#id2) 
+    - [Configurando váriaveis de ambiente](#id3) 
+    - [Iniciando a API](#id4)
 -   [Endpoints](#id5)
 -   [Documentação](#id6)
 -   [Testes automatizados](#id7)
@@ -52,7 +54,7 @@ Esta aplicação utiliza o banco de dados NoSQL [MongoDB](https://www.mongodb.co
 
 **Configurando váriaveis de ambiente**
 
-Abra os arquivos _.env_ e _.env.test_ que devem armazenar as váriaveis de ambiente de desenvolvimento e testes respectivamente. Para ambos os arquivos deveram ser configuradas as seguintes váriaveis:
+Abra os arquivos _.env_ e _.env.test_ que devem armazenar as váriaveis de ambiente de desenvolvimento e testes respectivamente. Para ambos os arquivos deverão ser configuradas as seguintes váriaveis:
 
 ```js
 DB_USER= // usuário do banco no mongo
@@ -134,7 +136,7 @@ Nesta sera fornecida uma interface contendo a documentação completa com expeci
 
 ## Testes automatizados
 
-Para execução dos testes automatizados com Jest, certifique de ter configurado corretamente o arquivo _.env.tests_ e então execute o comando:
+Para execução dos testes automatizados com Jest, certifique-se de ter configurado corretamente o arquivo _.env.tests_ e então execute o comando:
 
 ```sh
 $ npm test
