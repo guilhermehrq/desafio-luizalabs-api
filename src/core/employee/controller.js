@@ -4,7 +4,7 @@ const scope = require('./scope');
 module.exports = {
     getEmployees,
     getEmployeeStates,
-    getEmployeeByCpf,
+    getEmployeeById,
     insertEmployee,
     updateEmployee,
     deleteEmployee,
@@ -55,15 +55,15 @@ async function getEmployeeStates(req, res) {
     }
 }
 
-async function getEmployeeByCpf(req, res) {
+async function getEmployeeById(req, res) {
     try {
         const params = {
-            cpf: req.params.employeeCpf,
+            cpf: req.params.employeeId,
         };
 
-        await scope.getEmployeeByCpf(params);
+        await scope.getEmployeeById(params);
 
-        const data = await repository.getEmployeeByCpf(params.cpf);
+        const data = await repository.getEmployeeById(params.cpf);
 
         res.status(200).json({
             content: data,
@@ -101,7 +101,7 @@ async function updateEmployee(req, res) {
     try {
         const params = {
             id: req.body._id,
-            employeeCpf: req.params.employeeCpf,
+            employeeId: req.params.employeeId,
             nome: req.body.nome,
             ufNasc: req.body.ufNasc,
             cargo: req.body.cargo,
@@ -124,7 +124,7 @@ async function updateEmployee(req, res) {
 async function deleteEmployee(req, res) {
     try {
         const params = {
-            cpf: req.params.employeeCpf,
+            cpf: req.params.employeeId,
         };
 
         await scope.deleteEmployee(params);

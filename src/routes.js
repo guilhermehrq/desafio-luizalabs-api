@@ -11,8 +11,8 @@ module.exports = app => {
         .get(employee.getEmployees)
         .post(employee.insertEmployee);
 
-    app.route('/employee/:employeeCpf')
-        .get(employee.getEmployeeByCpf)
+    app.route('/employee/:employeeId')
+        .get(employee.getEmployeeById)
         .put(employee.updateEmployee)
         .delete(employee.deleteEmployee);
 

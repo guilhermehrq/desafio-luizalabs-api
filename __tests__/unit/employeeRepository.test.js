@@ -97,7 +97,7 @@ describe('EmployeeRepository tests', () => {
     });
 
     it('should get a employee by cpf filter', async (done) => {
-        const employee = await employeeRepository.getEmployeeByCpf('12345678909');
+        const employee = await employeeRepository.getEmployeeById('12345678909');
 
         expect(employee).toHaveProperty('_id');
         expect(employee).toHaveProperty('nome', 'Teste');
@@ -106,7 +106,7 @@ describe('EmployeeRepository tests', () => {
 
     it('should try to get a employee by cpf filter and receive a 404 error (not found)', async (done) => {
         try {
-            await employeeRepository.getEmployeeByCpf('777777777');
+            await employeeRepository.getEmployeeById('777777777');
         } catch (e) {
             expect(e).toHaveProperty('statusCode', 404);
             expect(e).toHaveProperty('message', 'Funcionário não encontrado');
@@ -116,7 +116,7 @@ describe('EmployeeRepository tests', () => {
 
     it('should update an employee', async (done) => {
         const employeeData = {
-            employeeCpf: '12345678909',
+            employeeId: '12345678909',
             nome: 'Funcionario Teste',
             ufNasc: 'RJ',
             cargo: 'Dev Jr',
@@ -137,7 +137,7 @@ describe('EmployeeRepository tests', () => {
     it('should try to update an employee and receive a 404 error (not found)', async (done) => {
         try {
             const employeeData = {
-                employeeCpf: '777777777',
+                employeeId: '777777777',
                 nome: 'Funcionario Teste',
                 ufNasc: 'RJ',
                 cargo: 'Dev Jr',

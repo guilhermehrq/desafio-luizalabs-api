@@ -4,7 +4,7 @@ const service = require('./service');
 module.exports = {
     getEmployee,
     getEmployeeStates,
-    getEmployeeByCpf,
+    getEmployeeById,
     insertEmployee,
     updateEmployee,
     deleteEmployee,
@@ -39,8 +39,8 @@ async function getEmployeeStates() {
     return data;
 }
 
-async function getEmployeeByCpf(employeeCpf) {
-    const employee = await Employee.findOne({ cpf: employeeCpf });
+async function getEmployeeById(employeeId) {
+    const employee = await Employee.findOne({ cpf: employeeId });
 
     if (!employee) {
         throw {
@@ -68,7 +68,7 @@ async function insertEmployee(data) {
 }
 
 async function updateEmployee(data) {
-    const employee = await Employee.findOne({ cpf: data.employeeCpf });
+    const employee = await Employee.findOne({ cpf: data.employeeId });
 
     if (!employee) {
         throw {
@@ -77,15 +77,15 @@ async function updateEmployee(data) {
         };
     }
 
-    const updatedEmployee = await Employee.findOneAndUpdate({ cpf: data.employeeCpf }, data, {
+    const updatedEmployee = await Employee.findOneAndUpdate({ cpf: data.employeeId }, data, {
         new: true,
     });
 
     return updatedEmployee;
 }
 
-async function deleteEmployee(employeeCpf) {
-    const employee = await Employee.findOne({ cpf: employeeCpf });
+async function deleteEmployee(employeeId) {
+    const employee = await Employee.findOne({ cpf: employeeId });
 
     if (!employee) {
         throw {
@@ -94,7 +94,7 @@ async function deleteEmployee(employeeCpf) {
         };
     }
 
-    await Employee.findOneAndDelete({ cpf: employeeCpf });
+    await Employee.findOneAndDelete({ cpf: employeeId });
 
     return true;
 }

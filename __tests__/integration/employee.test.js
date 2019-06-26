@@ -66,8 +66,8 @@ describe('getEmployeeStates integration test', () => {
     });
 });
 
-describe('getEmployeeByCpf integration test', () => {
-    it('should do a GET request to /employee/:employeeCpf and receive a status 200 (OK)', async (done) => {
+describe('getEmployeeById integration test', () => {
+    it('should do a GET request to /employee/:employeeId and receive a status 200 (OK)', async (done) => {
         const response = await request(app).get('/employee/85235708709');
 
         expect(response.status).toBe(200);
@@ -77,7 +77,7 @@ describe('getEmployeeByCpf integration test', () => {
         done();
     });
 
-    it('should do a GET request to /employee/:employeeCpf and receive a status 404 (Not Found)', async (done) => {
+    it('should do a GET request to /employee/:employeeId and receive a status 404 (Not Found)', async (done) => {
         const response = await request(app).get('/employee/22222222');
 
         expect(response.status).toBe(404);
@@ -145,7 +145,7 @@ describe('updateEmployee integration test', () => {
         salario: 8500,
     };
 
-    it('should do a PUT request to /employee/:employeeCpf and receive a status 200 (OK)', async (done) => {
+    it('should do a PUT request to /employee/:employeeId and receive a status 200 (OK)', async (done) => {
         const response = await request(app)
             .put('/employee/111111111')
             .send(defaultUser);
@@ -182,7 +182,7 @@ describe('updateEmployee integration test', () => {
 });
 
 describe('deleteEmployee integration test', () => {
-    it('should do a DELETE request to /employee/:employeeCpf and receive a status 200 (OK)', async (done) => {
+    it('should do a DELETE request to /employee/:employeeId and receive a status 200 (OK)', async (done) => {
         const response = await request(app).delete('/employee/111111111');
 
         expect(response.status).toBe(200);
@@ -191,7 +191,7 @@ describe('deleteEmployee integration test', () => {
         done();
     });
 
-    it('should do a DELETE request to /employee/:employeeCpf and receive a status 404 (Not Found)', async (done) => {
+    it('should do a DELETE request to /employee/:employeeId and receive a status 404 (Not Found)', async (done) => {
         const response = await request(app).delete('/employee/111111111');
 
         expect(response.status).toBe(404);

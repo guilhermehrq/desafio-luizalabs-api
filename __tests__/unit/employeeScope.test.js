@@ -18,12 +18,12 @@ describe('employeeScope tests', () => {
         done();
     });
 
-    it('should validate getEmployeeByCpf params', async (done) => {
+    it('should validate getEmployeeById params', async (done) => {
         const params = {
             cpf: '1111111',
         };
 
-        const ret = await employeeScope.getEmployeeByCpf(params);
+        const ret = await employeeScope.getEmployeeById(params);
 
         expect(ret).toBeUndefined();
         done();
@@ -48,7 +48,7 @@ describe('employeeScope tests', () => {
     it('should validate updateEmployee params', async (done) => {
         const params = {
             id: '5d129d8d4801cb3349c8049e',
-            employeeCpf: '11111111',
+            employeeId: '11111111',
             nome: 'Anderson Teste',
             ufNasc: 'RJ',
             cargo: 'Dev Jr',

@@ -94,9 +94,9 @@ e acessar os endpoints a partir da rota base: http://localhost:3000
 | GET    | /ping                  | Verifica se a API está rodando                                                                                    |
 | GET    | /employee              | Retorna os funcionários, podem ser passados filtros (nome, cpf, cargo, data de cadastro, faixa salarial e status) |
 | POST   | /employee              | Insere um novo funcionário no banco                                                                               |
-| GET    | /employee/:employeeCpf | Busca um funcionário pelo seu número de CPF                                                                       |
-| PUT    | /employee/:employeeCpf | Atualiza um funcionário pelo número de seu CPF                                                                    |
-| DELETE | /employee/:employeeCpf | Exclui um funcionário pelo seu número de CPF                                                                      |
+| GET    | /employee/:employeeId | Busca um funcionário pelo seu número de CPF                                                                       |
+| PUT    | /employee/:employeeId | Atualiza um funcionário pelo número de seu CPF                                                                    |
+| DELETE | /employee/:employeeId | Exclui um funcionário pelo seu número de CPF                                                                      |
 | GET    | /employee-states       | Retorna lista de UFs de nascimento dos funcionários, com suas quantidades                                         |
 
 ## Testes automatizados

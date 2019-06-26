@@ -2,7 +2,7 @@ const validate = require('../../helper/validate');
 
 module.exports = {
     getEmployees,
-    getEmployeeByCpf,
+    getEmployeeById,
     insertEmployee,
     updateEmployee,
     deleteEmployee,
@@ -43,7 +43,7 @@ async function getEmployees(params) {
     }
 }
 
-async function getEmployeeByCpf(params) {
+async function getEmployeeById(params) {
     const validation = {
         cpf: {
             string: true,
@@ -111,7 +111,7 @@ async function updateEmployee(params) {
             required: true,
             notNull: true,
         },
-        employeeCpf: {
+        employeeId: {
             string: true,
             required: true,
             notNull: true,
