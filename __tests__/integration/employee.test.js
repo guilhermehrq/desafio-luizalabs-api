@@ -151,7 +151,7 @@ describe('updateEmployee integration test', () => {
             .send(defaultUser);
 
         expect(response.status).toBe(200);
-        expect(response.body).toHaveProperty('message', 'Funcionário atualizado com sucesso');
+        expect(response.body).toHaveProperty('message', 'Funcionário atualizado com sucesso!');
 
         done();
     });

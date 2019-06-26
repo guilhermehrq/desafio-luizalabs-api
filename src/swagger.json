@@ -165,7 +165,7 @@
                                 },
                                 "message": {
                                     "type": "string",
-                                    "example": "Funcionário inserido com sucesso"
+                                    "example": "Funcionário inserido com sucesso!"
                                 }
                             }
                         }
@@ -330,7 +330,7 @@
                             "properties": {
                                 "message": {
                                     "type": "string",
-                                    "example": "Funcionário atualizado com sucesso"
+                                    "example": "Funcionário atualizado com sucesso!"
                                 }
                             }
                         }

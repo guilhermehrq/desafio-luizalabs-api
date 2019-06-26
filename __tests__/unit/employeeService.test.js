@@ -40,7 +40,7 @@ describe('EmployeeService tests', () => {
             page: 1,
             nome: { $regex: 'Teste', $options: 'i' },
             cpf: '12345678909',
-            cargo: 'Dev Jr',
+            cargo: { $regex: 'Dev Jr', $options: 'i' },
             dataCad: new Date('2017-04-15').toISOString(),
             status: 'ATIVO',
             salario: {

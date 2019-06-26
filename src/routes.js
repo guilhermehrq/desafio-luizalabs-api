@@ -21,5 +21,6 @@ module.exports = (app) => {
 
     app.route('/employee-states').get(employee.getEmployeeStates);
 
+    // Inclui rota para a documentação do Swagger
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 };

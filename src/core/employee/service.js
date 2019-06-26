@@ -1,6 +1,6 @@
 module.exports = {
     generateFilter,
-    formatFilter
+    formatFilter,
 };
 
 /**
@@ -34,6 +34,10 @@ function generateFilter(data) {
         filter.nome = { $regex: filter.nome, $options: 'i' };
     }
 
+    if (filter.cargo) {
+        filter.cargo = { $regex: filter.cargo, $options: 'i' };
+    }
+
     return filter;
 }
 
@@ -43,7 +47,7 @@ function generateFilter(data) {
  * @return {Object}
  */
 function formatFilter(filter) {
-    Object.keys(filter).forEach(key => {
+    Object.keys(filter).forEach((key) => {
         if (!filter[key]) {
             delete filter[key];
         }

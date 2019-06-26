@@ -1,5 +1,12 @@
 module.exports = validate;
 
+/**
+ * Recebe uma lista de parametro e uma lista de validações pelas quais deve passar
+ * Validações como: dados obrigatórios, se é string, number, boolean, date e etc.
+ * @param {Object} params - Lista de parametros a serem validados
+ * @param {Object} validation - Lista de validações separadas por cada parametro passado
+ * @returns {Array}
+ */
 function doValidate(params, validation) {
     const errorList = [];
     const paramsNames = Object.keys(validation);
@@ -64,6 +71,7 @@ function doValidate(params, validation) {
             }
         }
 
+        // Valida propriedades de objetos e de objetos dentro de arrays
         if (suitcase && metalDetector.validation) {
             let suitcaseParsed;
             if (typeof suitcase === 'string') {
@@ -89,6 +97,7 @@ function doValidate(params, validation) {
             }
         }
 
+        // Valida todos os itens de um array, seguindo as validações passadas
         if (suitcase && metalDetector.array) {
             let suitcaseParsed;
             if (typeof suitcase === 'string') {
@@ -112,6 +121,13 @@ function doValidate(params, validation) {
     return errorList;
 }
 
+/**
+ * Executa as validações e caso tenha errors, dispara o erro para aplicação
+ * Caso não tenha errors, retorna true
+ * @param {Object} params - Lista de parametros a serem validados
+ * @param {Object} validation - Lista de validações separadas por cada parametro passado
+ * @returns {Boolean}
+ */
 async function validate(params, validation) {
     const errorList = doValidate(params, validation);
 

@@ -90,7 +90,7 @@ async function insertEmployee(req, res) {
 
         res.status(200).json({
             content: data,
-            message: 'Funcionário inserido com sucesso',
+            message: 'Funcionário inserido com sucesso!',
         });
     } catch (e) {
         return handleError(res, e);
@@ -114,7 +114,7 @@ async function updateEmployee(req, res) {
         await repository.updateEmployee(params);
 
         res.status(200).json({
-            message: 'Funcionário atualizado com sucesso',
+            message: 'Funcionário atualizado com sucesso!',
         });
     } catch (e) {
         return handleError(res, e);

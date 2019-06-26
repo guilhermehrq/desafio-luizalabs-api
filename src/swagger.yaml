@@ -125,7 +125,7 @@ paths:
                 example: '5d12eae5fdce28793dd9e2cd'
               message:
                 type: 'string'
-                example: 'Funcionário inserido com sucesso'
+                example: 'Funcionário inserido com sucesso!'
         401:
           description: 'Not authorized. When was tried to insert a new employee with an existing CPF'
           schema:
@@ -246,7 +246,7 @@ paths:
             properties:
               message:
                 type: 'string'
-                example: 'Funcionário atualizado com sucesso'
+                example: 'Funcionário atualizado com sucesso!'
         404:
           description: 'Not Found. When wasn''t found a employee with the CPF given'
           schema:

@@ -1,7 +1,8 @@
 require('dotenv').config({
-    path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
+    path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
 });
 
+// Conexão com o mongodb
 require('./dbConnect');
 
 const consign = require('consign');
