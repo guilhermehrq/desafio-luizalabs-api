@@ -7,18 +7,20 @@ Aplicação desenvolvida com base no documento técnico para vaga de desenvolved
 -   Desenvolvido com [NodeJS](https://nodejs.org/)
 -   Testes automatizados utilizando [Jest](https://jestjs.io/)
 -   Integração continua com [TravisCI](https://travis-ci.com/)
+-   Deploy automático com [Heroku](https://www.heroku.com/)
 -   Padronização do projeto seguindo especificações da [Airbnb](https://github.com/airbnb/javascript) configuradas com o uso do [ESLint](https://eslint.org/)
 -   Documentação da API feita com [Swagger](https://swagger.io)
 
 ## Índice
 
 -   [O desafio](#id1)
--   [Executando a aplicação](#id2)
-    -   [Configurando váriaveis de ambiente](#id3)
-    -   [Iniciando a API](#id4)
--   [Endpoints](#id5)
--   [Documentação](#id6)
--   [Testes automatizados](#id7)
+-   [Demo](#id2)
+-   [Executando a aplicação](#id3)
+    -   [Configurando váriaveis de ambiente](#id4)
+    -   [Iniciando a API](#id5)
+-   [Endpoints](#id6)
+-   [Documentação](#id7)
+-   [Testes automatizados](#id8)
 
 <div id='id1' />
 
@@ -36,6 +38,24 @@ O Web Services deveria disponibilizar serviços como:
 
 <div id='id2' />
 
+## Demo
+
+Uma versão em funcionamento da aplicação está disponível para demonstração e pode ser acessada através do endereço:
+
+[Desafio Luizalabs (Web)](http://desafio-luizalabs.herokuapp.com/)
+
+Está API também pode ser consumida em uma instância do Heroku através da rota base:
+
+http://desafio-luizalabs-api.herokuapp.com
+
+> Confira os [endpoints](#id6) disponíveis
+
+Para mais detalhes é possível ter acesso a documentação da API através do Swagger acessando o link abaixo:
+
+[Desafio Luizalabs (Documentação)](http://desafio-luizalabs-api.herokuapp.com/api-docs)
+
+<div id='id3' />
+
 ## Executando a aplicação
 
 Para executar a aplicação certifique-se de ter instalado em sua máquina o [NodeJS](https://nodejs.org/en/download/) juntamente com o [Git](https://git-scm.com/downloads).
@@ -50,7 +70,7 @@ $ npm install
 
 Esta aplicação utiliza o banco de dados NoSQL [MongoDB](https://www.mongodb.com/), por conta disso certifique-se de ter instalado o mesmo em sua máquina ou utilize uma plataforma online, recomendo o uso do [mLab](https://mlab.com/) _(It's free :D)_.
 
-<div id='id3' />
+<div id='id4' />
 
 **Configurando váriaveis de ambiente**
 
@@ -70,7 +90,7 @@ Após a configuração de ambos os arquivos basta abrir o terminal e executar o 
 $ npm run populate-database
 ```
 
-> Este comando pode ser executado sempre que necessário re-popular a collection
+> Este comando pode ser executado sempre que necessário recriar o banco.
 
 > A base de testes é recriada sempre que os testes automatizados são
 > executados.
@@ -95,7 +115,7 @@ DB_NAME=desafio-labs-tests
 DB_HOST=ds243317.mlab.com:43317
 ```
 
-<div id='id4' />
+<div id='id5' />
 
 **Iniciando a API**
 
@@ -107,7 +127,7 @@ $ npm start
 
 e acessar os endpoints a partir da rota base: http://localhost:3001
 
-<div id='id5' />
+<div id='id6' />
 
 ## Endpoints
 
@@ -122,7 +142,7 @@ e acessar os endpoints a partir da rota base: http://localhost:3001
 | GET    | /employee-states      | Retorna lista de UFs de nascimento dos funcionários, com suas quantidades                                                   |
 | GET    | /api-docs             | Rota para a documentação da API feita com Swagger. **(ACESSAR ESTE ATRAVÉS DE SEU NAVEGADOR)**                              |
 
-<div id='id6' />
+<div id='id7' />
 
 ## Documentação
 
@@ -132,7 +152,7 @@ http://localhost:3001/api-docs/
 
 Nesta sera fornecida uma interface contendo a documentação completa com expecificações de cada endpoint existente na API feita com o Swagger.
 
-<div id='id7' />
+<div id='id8' />
 
 ## Testes automatizados
 

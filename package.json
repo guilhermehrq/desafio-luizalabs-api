@@ -1,7 +1,7 @@
 {
     "name": "desafio-luizalabs",
     "version": "1.0.0",
-    "description": "",
+    "description": "API developed based on no technical challenge for a Developer position at Luizalabs.",
     "main": "src/index.js",
     "dependencies": {
         "consign": "^0.1.6",
