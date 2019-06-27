@@ -13,9 +13,9 @@ Aplicação desenvolvida com base no documento técnico para vaga de desenvolved
 ## Índice
 
 -   [O desafio](#id1)
--   [Executando a aplicação](#id2) 
-    - [Configurando váriaveis de ambiente](#id3) 
-    - [Iniciando a API](#id4)
+-   [Executando a aplicação](#id2)
+    -   [Configurando váriaveis de ambiente](#id3)
+    -   [Iniciando a API](#id4)
 -   [Endpoints](#id5)
 -   [Documentação](#id6)
 -   [Testes automatizados](#id7)
@@ -61,7 +61,7 @@ DB_USER= // usuário do banco no mongo
 DB_PASS= // senha do banco
 DB_NAME= // nome do banco no mongo
 DB_HOST= // servidor onde está rodando o serviço do mongo (Local: localhost:27017)
-PORT= // (OPCIONAL) porta onde a API sera disponibilizada (DEFAULT: 3000)
+PORT= // (OPCIONAL) porta onde a API sera disponibilizada (DEFAULT: 3001)
 ```
 
 Após a configuração de ambos os arquivos basta abrir o terminal e executar o seguinte comando para popular a base de desenvolvimento:
@@ -105,7 +105,7 @@ Para iniciar os serviços da API basta executar o comando:
 $ npm start
 ```
 
-e acessar os endpoints a partir da rota base: http://localhost:3000
+e acessar os endpoints a partir da rota base: http://localhost:3001
 
 <div id='id5' />
 
@@ -128,7 +128,7 @@ e acessar os endpoints a partir da rota base: http://localhost:3000
 
 Para encontrar detalhes mais técnicos sobre os serviços, endpoints e parametros que podem ser passados ou dados que serão recebidos da API, basta iniciar o projeto e acessar a rota:
 
-http://localhost:3000/api-docs/
+http://localhost:3001/api-docs/
 
 Nesta sera fornecida uma interface contendo a documentação completa com expecificações de cada endpoint existente na API feita com o Swagger.
 
