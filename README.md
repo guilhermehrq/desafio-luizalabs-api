@@ -1,4 +1,4 @@
-# Desafio Técnico Luizalabs
+# Desafio Técnico Luizalabs - API
 
 ![Build status](https://travis-ci.com/guilhermehrq/desafio-luizalabs.svg?token=NMRqR1XzXHw8yVERNabp&branch=master)
 
@@ -36,6 +36,8 @@ O Web Services deveria disponibilizar serviços como:
 -   Possibilidade de alteração de um funcionário existente
 -   Possibilidade de exclusão de um determinado funcionário pelo seu número de CPF
 
+Foi criado também uma aplicação frontend para consumo dos serviços citados acima, para mais informações sobre este basta acessar o repositório [Desafio Técnico Luizalabs - Web](https://github.com/guilhermehrq/desafio-luizalabs-web)
+
 <div id='id2' />
 
 ## Demo
@@ -44,11 +46,11 @@ Uma versão em funcionamento da aplicação está disponível para demonstraçã
 
 [Desafio Luizalabs (Web)](http://desafio-luizalabs.herokuapp.com/)
 
-Está API também pode ser consumida em uma instância do Heroku através da rota base:
+Esta API também pode ser consumida em uma instância do Heroku através da rota base:
 
 http://desafio-luizalabs-api.herokuapp.com
 
-> Confira os [endpoints](#id6) disponíveis
+> Confira os [endpoints](#id6) disponíveis.
 
 Para mais detalhes é possível ter acesso a documentação da API através do Swagger acessando o link abaixo:
 
@@ -84,17 +86,6 @@ DB_HOST= // servidor onde está rodando o serviço do mongo (Local: localhost:27
 PORT= // (OPCIONAL) porta onde a API sera disponibilizada (DEFAULT: 3001)
 ```
 
-Após a configuração de ambos os arquivos basta abrir o terminal e executar o seguinte comando para popular a base de desenvolvimento:
-
-```sh
-$ npm run populate-database
-```
-
-> Este comando pode ser executado sempre que necessário recriar o banco.
-
-> A base de testes é recriada sempre que os testes automatizados são
-> executados.
-
 Para demonstrações poderão ser utilizadas as seguintes configurações (ambas já possuem suas collections populadas, sem a necessidade de executar o comando acima):
 
 **_.env_**
@@ -114,6 +105,17 @@ DB_PASS=test123
 DB_NAME=desafio-labs-tests
 DB_HOST=ds243317.mlab.com:43317
 ```
+
+Após a configuração de ambos os arquivos basta abrir o terminal e executar o seguinte comando para popular a base de desenvolvimento:
+
+```sh
+$ npm run populate-database
+```
+
+> Este comando pode ser executado sempre que necessário recriar o banco.
+
+> A base de testes é recriada sempre que os testes automatizados são
+> executados.
 
 <div id='id5' />
 

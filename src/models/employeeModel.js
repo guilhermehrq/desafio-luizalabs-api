@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema(
     {
-        dataCad: { type: Date },
+        dataCad: { type: Date, required: true },
         cargo: { type: String, required: true },
         cpf: { type: String, required: true },
         nome: { type: String, required: true },
