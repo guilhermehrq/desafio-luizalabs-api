@@ -55,6 +55,9 @@ async function getEmployeeById(employeeId) {
 async function insertEmployee(data) {
     const employee = await Employee.findOne({ cpf: data.cpf });
 
+    const registerDate = new Date().toISOString().split('T');
+    data.dataCad = `${registerDate[0]}T00:00:00.000Z`;
+
     if (employee) {
         throw {
             statusCode: 401,
