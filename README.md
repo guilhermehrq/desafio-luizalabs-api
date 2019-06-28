@@ -1,4 +1,5 @@
 
+
 # Desafio Técnico Luizalabs - API
 
 ![Build status](https://travis-ci.com/guilhermehrq/desafio-luizalabs.svg?token=NMRqR1XzXHw8yVERNabp&branch=master)
@@ -125,6 +126,8 @@ $ npm run populate-database
 
 > A base de testes é re-criada sempre que os testes automatizados são
 > executados.
+
+Este comando executa o script _"populateDatabase.js"_, que realizará a leitura e processamento do documento _"funcionarios.txt"_ (que pode ser encontrado na pasta _"resources"_), formatando todas as informações de cada funcionário e em seguida realiza a inserção de todos no banco Mongo configurado anteriormente.
 
 <div id='id6' />
 
