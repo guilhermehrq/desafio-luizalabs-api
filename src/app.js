@@ -10,6 +10,12 @@ const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
 
+// Configurando timezone padrão
+const moment = require('moment');
+require('moment-timezone');
+moment.tz.setDefault('America/Sao_Paulo');
+
+
 const app = express();
 
 app.use(express.json());

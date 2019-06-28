@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 const Employee = require('../../models/employeeModel');
 const service = require('./service');
 
@@ -55,7 +57,7 @@ async function getEmployeeById(employeeId) {
 async function insertEmployee(data) {
     const employee = await Employee.findOne({ cpf: data.cpf });
 
-    const registerDate = new Date().toISOString().split('T');
+    const registerDate = moment().format().split('T');
     data.dataCad = `${registerDate[0]}T00:00:00.000Z`;
 
     if (employee) {
