@@ -1,14 +1,16 @@
+
 # Desafio Técnico Luizalabs - API
 
 ![Build status](https://travis-ci.com/guilhermehrq/desafio-luizalabs.svg?token=NMRqR1XzXHw8yVERNabp&branch=master)
 
-Aplicação desenvolvida com base no documento técnico para vaga de desenvolvedor do [Luizalabs](https://www.99jobs.com/luizalabs).
+Aplicação desenvolvida com base no documento técnico para vaga de desenvolvedor no [Luizalabs](https://www.99jobs.com/luizalabs).
 
 -   Desenvolvido com [NodeJS](https://nodejs.org/)
+-   Aplicação [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer)
 -   Testes automatizados utilizando [Jest](https://jestjs.io/)
 -   Integração continua com [TravisCI](https://travis-ci.com/)
--   Deploy automático com [Heroku](https://www.heroku.com/)
--   Padronização do projeto seguindo especificações da [Airbnb](https://github.com/airbnb/javascript) configuradas com o uso do [ESLint](https://eslint.org/)
+-   Deploy automático no [Heroku](https://www.heroku.com/)
+-   Padronização de projeto seguindo especificações da [Airbnb](https://github.com/airbnb/javascript) configuradas com o uso do [ESLint](https://eslint.org/)
 -   Documentação da API feita com [Swagger](https://swagger.io)
 
 ## Índice
@@ -16,11 +18,12 @@ Aplicação desenvolvida com base no documento técnico para vaga de desenvolved
 -   [O desafio](#id1)
 -   [Demo](#id2)
 -   [Executando a aplicação](#id3)
-    -   [Configurando váriaveis de ambiente](#id4)
-    -   [Iniciando a API](#id5)
--   [Endpoints](#id6)
--   [Documentação](#id7)
--   [Testes automatizados](#id8)
+    -   [Configurando variáveis de ambiente](#id4)
+    -   [Populando o banco de dados](#id5)
+    -   [Iniciando a API](#id6)
+-   [Endpoints](#id7)
+-   [Documentação](#id8)
+-   [Testes automatizados](#id9)
 
 <div id='id1' />
 
@@ -36,25 +39,27 @@ O Web Services deveria disponibilizar serviços como:
 -   Possibilidade de alteração de um funcionário existente
 -   Possibilidade de exclusão de um determinado funcionário pelo seu número de CPF
 
-Foi criado também uma aplicação frontend para consumo dos serviços citados acima, para mais informações sobre este basta acessar o repositório [Desafio Técnico Luizalabs - Web](https://github.com/guilhermehrq/desafio-luizalabs-web)
+Para consumo dos serviços citados acima, foi desenvolvida uma aplicação frontend com ReactJS, para mais informações basta acessar o repositório [Desafio Técnico Luizalabs - Web](https://github.com/guilhermehrq/desafio-luizalabs-web)
 
 <div id='id2' />
 
 ## Demo
 
-Uma versão em funcionamento da aplicação está disponível para demonstração e pode ser acessada através do endereço:
+Uma versão em funcionamento da aplicação está disponível para demonstrações e pode ser acessada através do endereço:
 
-[Desafio Luizalabs (Web)](http://desafio-luizalabs.herokuapp.com/)
+[Desafio Luizalabs (Web)](https://desafio-luizalabs.herokuapp.com/)
 
 Esta API também pode ser consumida em uma instância do Heroku através da rota base:
 
-http://desafio-luizalabs-api.herokuapp.com
+https://desafio-luizalabs-api.herokuapp.com
 
 > Confira os [endpoints](#id6) disponíveis.
 
-Para mais detalhes é possível ter acesso a documentação da API através do Swagger acessando o link abaixo:
+Para mais detalhes é possível ter acesso a documentação da API através do Swagger acessando o endereço:
 
-[Desafio Luizalabs (Documentação)](http://desafio-luizalabs-api.herokuapp.com/api-docs)
+[Desafio Luizalabs (Documentação)](https://desafio-luizalabs-api.herokuapp.com/api-docs)
+
+> O Heroku trabalha em regime de demanda em suas instâncias, por isso, o **primeiro** acesso ou requisição a algum dos endereços a cima pode demorar alguns segundos.
 
 <div id='id3' />
 
@@ -74,19 +79,19 @@ Esta aplicação utiliza o banco de dados NoSQL [MongoDB](https://www.mongodb.co
 
 <div id='id4' />
 
-**Configurando váriaveis de ambiente**
+**Configurando variáveis de ambiente**
 
-Abra os arquivos _.env_ e _.env.test_ que devem armazenar as váriaveis de ambiente de desenvolvimento e testes respectivamente. Para ambos os arquivos deverão ser configuradas as seguintes váriaveis:
+Abra os arquivos _.env_ e _.env.test_, que devem armazenar as váriaveis de ambiente de desenvolvimento e testes respectivamente. Para ambos os arquivos devem ser configuradas as seguintes váriaveis:
 
 ```js
 DB_USER= // usuário do banco no mongo
-DB_PASS= // senha do banco
+DB_PASS= // senha do usuário
 DB_NAME= // nome do banco no mongo
-DB_HOST= // servidor onde está rodando o serviço do mongo (Local: localhost:27017)
-PORT= // (OPCIONAL) porta onde a API sera disponibilizada (DEFAULT: 3001)
+DB_HOST= // servidor onde está rodando o serviço do mongo (LOCAL: localhost:27017)
+PORT= // (OPCIONAL) porta onde a API será disponibilizada (PADRÃO: 3001)
 ```
 
-Para demonstrações poderão ser utilizadas as seguintes configurações (ambas já possuem suas collections populadas, sem a necessidade de executar o comando acima):
+Para demonstrações poderão ser utilizadas as seguintes configurações (ambas já possuem suas collections populadas, tornando assim, o passo _"Populando o banco de dados"_ opcional):
 
 **_.env_**
 
@@ -106,18 +111,22 @@ DB_NAME=desafio-labs-tests
 DB_HOST=ds243317.mlab.com:43317
 ```
 
+<div id='id5' />
+
+**Populando o banco de dados**
+
 Após a configuração de ambos os arquivos basta abrir o terminal e executar o seguinte comando para popular a base de desenvolvimento:
 
 ```sh
 $ npm run populate-database
 ```
 
-> Este comando pode ser executado sempre que necessário recriar o banco.
+> Este comando pode ser executado sempre que necessário recriar o banco de dados.
 
-> A base de testes é recriada sempre que os testes automatizados são
+> A base de testes é re-criada sempre que os testes automatizados são
 > executados.
 
-<div id='id5' />
+<div id='id6' />
 
 **Iniciando a API**
 
@@ -129,7 +138,7 @@ $ npm start
 
 e acessar os endpoints a partir da rota base: http://localhost:3001
 
-<div id='id6' />
+<div id='id7' />
 
 ## Endpoints
 
@@ -144,17 +153,17 @@ e acessar os endpoints a partir da rota base: http://localhost:3001
 | GET    | /employee-states      | Retorna lista de UFs de nascimento dos funcionários, com suas quantidades                                                   |
 | GET    | /api-docs             | Rota para a documentação da API feita com Swagger. **(ACESSAR ESTE ATRAVÉS DE SEU NAVEGADOR)**                              |
 
-<div id='id7' />
+<div id='id8' />
 
 ## Documentação
 
-Para encontrar detalhes mais técnicos sobre os serviços, endpoints e parametros que podem ser passados ou dados que serão recebidos da API, basta iniciar o projeto e acessar a rota:
+Para encontrar detalhes mais técnicos sobre os serviços, endpoints e parametros que podem ou devem ser passados e dados que serão recebidos da API, basta iniciar o projeto e acessar a rota:
 
 http://localhost:3001/api-docs/
 
-Nesta sera fornecida uma interface contendo a documentação completa com expecificações de cada endpoint existente na API feita com o Swagger.
+Nesta será fornecida uma interface contendo a documentação completa, feita com Swagger, com expecificações de cada um dos endpoints existentes na API.
 
-<div id='id8' />
+<div id='id9' />
 
 ## Testes automatizados
 
