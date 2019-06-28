@@ -9,6 +9,7 @@ Aplicação desenvolvida com base no documento técnico para vaga de desenvolved
 -   Desenvolvido com [NodeJS](https://nodejs.org/)
 -   Aplicação [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer)
 -   Testes automatizados utilizando [Jest](https://jestjs.io/)
+-   Utilização do banco NoSQL [MongoDB](https://www.mongodb.com/)
 -   Integração continua com [TravisCI](https://travis-ci.com/)
 -   Deploy automático no [Heroku](https://www.heroku.com/)
 -   Padronização de projeto seguindo especificações da [Airbnb](https://github.com/airbnb/javascript) configuradas com o uso do [ESLint](https://eslint.org/)
